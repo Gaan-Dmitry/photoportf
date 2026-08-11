@@ -1,0 +1,120 @@
+/* Базовые переменные (взято с референса Scandi Tours) */
+:root {
+    --bg-color: #0b1315;      /* Глубокий темный фон */
+    --card-bg: #152224;       /* Фон карточек */
+    --text-main: #f4f6f7;     /* Светлый текст */
+    --text-muted: #8c9fa3;    /* Второстепенный текст */
+    --accent: #5e8b8c;        /* Приглушенный акцентный цвет */
+    --font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Главный экран */
+.hero {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    background: radial-gradient(circle at top right, #152224, transparent 50%);
+}
+
+.hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    max-width: 800px;
+}
+
+.hero-title span {
+    color: var(--accent);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 15px 35px;
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--accent);
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+/* Портфолио */
+.portfolio {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.portfolio-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 400px; /* Фиксированная высота для предзагрузки */
+    position: relative;
+}
+
+.portfolio-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Анимация Skeleton Loading */
+.skeleton {
+    background: linear-gradient(90deg, #152224 25%, #1d2e30 50%, #152224 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite linear;
+}
+
+.skeleton img {
+    opacity: 0; /* Прячем картинку, пока она не загрузится */
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
