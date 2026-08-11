@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в панель администратора</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <section class="upload-section" style="min-height: 100vh; display: flex; align-items: center;">
+        <div class="container" style="width: 100%;">
+            <div class="form-wrapper">
+                <h2 class="section-title">Вход (Admin)</h2>
+                <form action="/admin/login" method="POST" class="custom-form">
+                    <div class="input-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Войти</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

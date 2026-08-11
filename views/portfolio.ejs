@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио - Фоторетушь</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Стили и скрипт для слайдера До/После -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+    <style>
+        .portfolio-header {
+            text-align: center;
+            padding: 40px 0;
+            background-color: var(--bg-color);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="portfolio-header">
+        <div class="container">
+            <h1 class="section-title" style="margin-bottom: 10px;">Мои работы</h1>
+            <p style="color: var(--text-muted);">Примеры профессиональной ретуши</p>
+            <a href="/" class="back-link">&larr; На главную</a>
+        </div>
+    </header>
+
+    <!-- Секция портфолио -->
+    <section class="portfolio" style="padding-top: 20px;">
+        <div class="container">
+            <div class="portfolio-grid">
+                <% if (portfolioItems && portfolioItems.length > 0) { %>
+                    <% portfolioItems.forEach(item => { %>
+                        <div class="portfolio-card">
+                            <img-comparison-slider>
+                                <img slot="first" src="<%= item.before %>" alt="До" width="100%" />
+                                <img slot="second" src="<%= item.after %>" alt="После" width="100%" />
+                            </img-comparison-slider>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p style="text-align: center; grid-column: 1 / -1; color: var(--text-muted);">В портфолио пока нет работ. Они скоро появятся!</p>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
