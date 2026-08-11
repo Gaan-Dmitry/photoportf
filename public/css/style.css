@@ -32,7 +32,7 @@ body {
     height: 80vh;
     display: flex;
     align-items: center;
-    background: radial-gradient(circle at top right, #152224, transparent 50%);
+    background: linear-gradient(to right, rgba(11, 19, 21, 0.9) 0%, rgba(11, 19, 21, 0.4) 100%), url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
 }
 
 .hero-title {
@@ -211,4 +211,95 @@ img-comparison-slider img {
 .input-group textarea:focus {
     outline: none;
     border-color: var(--accent);
+}
+
+
+/* Подвал (Footer) */
+.site-footer {
+    background-color: var(--card-bg);
+    padding: 60px 0 20px;
+    margin-top: 40px;
+    border-top: 1px solid rgba(94, 139, 140, 0.2);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-column h3 {
+    color: var(--text-main);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px;
+    height: 2px;
+    background-color: var(--accent);
+}
+
+.footer-column p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--accent);
+}
+
+.contact-list .icon {
+    margin-right: 8px;
+    opacity: 0.8;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(94, 139, 140, 0.3);
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.social-icon:hover {
+    background-color: var(--accent);
+    color: #fff !important;
+    border-color: var(--accent);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    font-size: 0.85rem;
 }
