@@ -16,7 +16,7 @@
                 <p class="hero-subtitle">🎁 Бесплатная профессиональная ретушь до 01.11.2026. Загрузите свой исходник, и я покажу, на что он способен!</p>
             </div>
             <a href="#upload" class="btn-primary">Отправить фото</a>
-            <a href="/portfolio" class="btn-primary">Смотреть портфолио</a>
+            <a href="/portfolio.php" class="btn-primary">Смотреть портфолио</a>
         </div>
     </header>
 
@@ -29,7 +29,7 @@
                     Прикрепите ссылку на облако с RAW/TIFF файлами (можно загрузить целую папку). Я сам отсмотрю материал и выберу от 1 до 3 лучших кадров для глубокой ретуши.
                 </p>
                 
-                <form action="/submit-request" method="POST" class="custom-form">
+                <form action="/submit-request.php" method="POST" class="custom-form">
                     <div class="input-group">
                         <label for="email">Ваш Email (туда придет результат)</label>
                         <input type="email" id="email" name="email" required placeholder="example@mail.com">
@@ -64,7 +64,7 @@
                     <h3>Навигация</h3>
                     <ul>
                         <li><a href="#">Главная</a></li>
-                        <li><a href="/portfolio">Портфолио</a></li>
+                        <li><a href="/portfolio.php">Портфолио</a></li>
                         <li><a href="#upload">Оставить заявку</a></li>
                     </ul>
                 </div>
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (urlParams.has('success')) {
         localStorage.setItem('lastRetouchSubmit', Date.now());
         // Убираем success из URL, чтобы не мешал при перезагрузке
-        window.history.replaceState({}, document.title, "/");
+        window.history.replaceState({}, document.title, window.location.pathname);
         checkCooldown();
     }
 
