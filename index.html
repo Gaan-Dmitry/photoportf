@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Профессиональная фоторетушь</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Стили и скрипт для слайдера До/После -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
 </head>
 <body>
 
@@ -13,34 +16,106 @@
         <div class="container">
             <h1 class="hero-title">Взглянем на ваши снимки <span>иначе</span></h1>
             <p class="hero-subtitle">Бесплатная профессиональная ретушь до 01.11.2026. Загрузите свой исходник, и я покажу, на что он способен.</p>
-            <a href="#upload-form" class="btn-primary">Загрузить фото</a>
+            <a href="#upload" class="btn-primary">Отправить фото</a>
         </div>
     </header>
 
-    <!-- Секция портфолио (с заготовками под слайдер) -->
+    <!-- Секция портфолио -->
     <section class="portfolio">
         <div class="container">
             <h2 class="section-title">Примеры работ</h2>
             
             <div class="portfolio-grid">
-                <!-- Карточка 1 (пока картинка грузится, работает skeleton) -->
-                <div class="portfolio-card skeleton">
-                    <!-- Сюда позже вставим JS-слайдер -->
-                    <img src="your-image-1.webp" alt="Пример ретуши" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
+                <!-- Карточка со слайдером -->
+                <div class="portfolio-card">
+                    <img-comparison-slider>
+                        <!-- Фото ДО (вставь свой исходник) -->
+                        <img slot="first" src="before.webp" alt="До" width="100%" />
+                        <!-- Фото ПОСЛЕ (вставь обработанный кадр) -->
+                        <img slot="second" src="after.webp" alt="После" width="100%" />
+                    </img-comparison-slider>
                 </div>
                 
-                <!-- Карточка 2 -->
-                <div class="portfolio-card skeleton">
-                    <img src="your-image-2.webp" alt="Пример ретуши" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
-                </div>
-
-                <!-- Карточка 3 -->
-                <div class="portfolio-card skeleton">
-                    <img src="your-image-3.webp" alt="Пример ретуши" loading="lazy" onload="this.parentElement.classList.remove('skeleton')">
-                </div>
+                <!-- Добавь столько карточек, сколько нужно -->
             </div>
         </div>
     </section>
+
+    <!-- Секция загрузки (Форма Netlify) -->
+    <section id="upload" class="upload-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <h2 class="section-title">Оставить заявку</h2>
+                <p style="text-align: center; margin-bottom: 30px; color: var(--text-muted);">
+                    Прикрепите ссылку на облако с RAW/TIFF файлами (можно загрузить целую папку). Я сам отсмотрю материал и выберу от 1 до 3 лучших кадров для глубокой ретуши.
+                </p>
+                
+                <!-- Атрибут data-netlify="true" заставляет форму работать без бэкенда -->
+                <form name="retouch-request" method="POST" data-netlify="true" class="custom-form">
+                    <div class="input-group">
+                        <label for="email">Ваш Email (туда придет результат)</label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.com">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="link">Ссылка на исходник (Google Drive, Яндекс.Диск)</label>
+                        <input type="url" id="link" name="link" required placeholder="https://...">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="comments">Пожелания (опционально)</label>
+                        <textarea id="comments" name="comments" rows="3" placeholder="Что бы вы хотели изменить?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" style="width: 100%;">Отправить на ретушь</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector('.custom-form');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const cooldownTime = 24 * 60 * 60 * 1000; // 24 часа в миллисекундах
+    
+    // Функция проверки кулдауна при загрузке страницы
+    function checkCooldown() {
+        const lastSubmit = localStorage.getItem('lastRetouchSubmit');
+        
+        if (lastSubmit) {
+            const timePassed = Date.now() - parseInt(lastSubmit, 10);
+            
+            if (timePassed < cooldownTime) {
+                // Если 24 часа не прошло, блокируем форму
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.5';
+                submitBtn.style.cursor = 'not-allowed';
+                submitBtn.textContent = 'Следующая отправка будет доступна завтра';
+                return true;
+            } else {
+                // Если время вышло, очищаем хранилище
+                localStorage.removeItem('lastRetouchSubmit');
+            }
+        }
+        return false;
+    }
+
+    // Проверяем при загрузке
+    checkCooldown();
+
+    // Перехватываем отправку формы
+    form.addEventListener('submit', function(e) {
+        if (checkCooldown()) {
+            e.preventDefault(); // На всякий случай блокируем отправку
+            return;
+        }
+        
+        // Записываем текущее время в localStorage при успешной отправке
+        localStorage.setItem('lastRetouchSubmit', Date.now());
+    });
+});
+</script>
 
 </body>
 </html>
