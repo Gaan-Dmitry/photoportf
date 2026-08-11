@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Профессиональная фоторетушь</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Стили и скрипт для слайдера До/После -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css" />
-    <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -15,33 +12,15 @@
     <header class="hero">
         <div class="container">
             <h1 class="hero-title">Взглянем на ваши снимки <span>иначе</span></h1>
-            <p class="hero-subtitle">Бесплатная профессиональная ретушь до 01.11.2026. Загрузите свой исходник, и я покажу, на что он способен.</p>
+            <div class="promo-box">
+                <p class="hero-subtitle">🎁 Бесплатная профессиональная ретушь до 01.11.2026. Загрузите свой исходник, и я покажу, на что он способен!</p>
+            </div>
             <a href="#upload" class="btn-primary">Отправить фото</a>
+            <a href="/portfolio" class="btn-primary">Смотреть портфолио</a>
         </div>
     </header>
 
-    <!-- Секция портфолио -->
-    <section class="portfolio">
-        <div class="container">
-            <h2 class="section-title">Примеры работ</h2>
-            
-            <div class="portfolio-grid">
-                <!-- Карточка со слайдером -->
-                <div class="portfolio-card">
-                    <img-comparison-slider>
-                        <!-- Фото ДО (вставь свой исходник) -->
-                        <img slot="first" src="before.webp" alt="До" width="100%" />
-                        <!-- Фото ПОСЛЕ (вставь обработанный кадр) -->
-                        <img slot="second" src="after.webp" alt="После" width="100%" />
-                    </img-comparison-slider>
-                </div>
-                
-                <!-- Добавь столько карточек, сколько нужно -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Секция загрузки (Форма Netlify) -->
+    <!-- Секция загрузки (Форма к бэкенду) -->
     <section id="upload" class="upload-section">
         <div class="container">
             <div class="form-wrapper">
@@ -50,8 +29,7 @@
                     Прикрепите ссылку на облако с RAW/TIFF файлами (можно загрузить целую папку). Я сам отсмотрю материал и выберу от 1 до 3 лучших кадров для глубокой ретуши.
                 </p>
                 
-                <!-- Атрибут data-netlify="true" заставляет форму работать без бэкенда -->
-                <form name="retouch-request" method="POST" data-netlify="true" class="custom-form">
+                <form action="/submit-request" method="POST" class="custom-form">
                     <div class="input-group">
                         <label for="email">Ваш Email (туда придет результат)</label>
                         <input type="email" id="email" name="email" required placeholder="example@mail.com">
@@ -77,7 +55,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.querySelector('.custom-form');
     const submitBtn = form.querySelector('button[type="submit"]');
-    const cooldownTime = 24 * 60 * 60 * 1000; // 24 часа в миллисекундах
+    const cooldownTime = 4 * 60 * 60 * 1000; // 4 часа в миллисекундах
+    let timerInterval;
     
     // Функция проверки кулдауна при загрузке страницы
     function checkCooldown() {
@@ -87,32 +66,64 @@ document.addEventListener("DOMContentLoaded", function() {
             const timePassed = Date.now() - parseInt(lastSubmit, 10);
             
             if (timePassed < cooldownTime) {
-                // Если 24 часа не прошло, блокируем форму
+                // Блокируем форму
                 submitBtn.disabled = true;
                 submitBtn.style.opacity = '0.5';
                 submitBtn.style.cursor = 'not-allowed';
-                submitBtn.textContent = 'Следующая отправка будет доступна завтра';
+
+                // Запускаем таймер
+                updateTimer(lastSubmit);
+                timerInterval = setInterval(() => updateTimer(lastSubmit), 1000);
+
                 return true;
             } else {
                 // Если время вышло, очищаем хранилище
                 localStorage.removeItem('lastRetouchSubmit');
+                if (timerInterval) clearInterval(timerInterval);
             }
         }
         return false;
     }
 
+    function updateTimer(lastSubmitTime) {
+        const timePassed = Date.now() - parseInt(lastSubmitTime, 10);
+        const timeLeft = cooldownTime - timePassed;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            localStorage.removeItem('lastRetouchSubmit');
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+            submitBtn.style.cursor = 'pointer';
+            submitBtn.textContent = 'Отправить на ретушь';
+        } else {
+            const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((timeLeft / 1000 / 60) % 60);
+            const seconds = Math.floor((timeLeft / 1000) % 60);
+            submitBtn.textContent = \`Отправка доступна через \${hours}:\${minutes.toString().padStart(2, '0')}:\${seconds.toString().padStart(2, '0')}\`;
+        }
+    }
+
     // Проверяем при загрузке
     checkCooldown();
 
-    // Перехватываем отправку формы
+    // Если отправка прошла успешно (перезагрузка страницы с ?success=1)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success')) {
+        localStorage.setItem('lastRetouchSubmit', Date.now());
+        // Убираем success из URL, чтобы не мешал при перезагрузке
+        window.history.replaceState({}, document.title, "/");
+        checkCooldown();
+    }
+
+    // При обычный отправке (если js срабатывает до того как ушли на сервер)
     form.addEventListener('submit', function(e) {
         if (checkCooldown()) {
-            e.preventDefault(); // На всякий случай блокируем отправку
+            e.preventDefault();
             return;
         }
-        
-        // Записываем текущее время в localStorage при успешной отправке
-        localStorage.setItem('lastRetouchSubmit', Date.now());
+        // Не устанавливаем тут localstorage, так как данные могли не дойти до сервера,
+        // устанавливаем его при возврате через ?success=1
     });
 });
 </script>
