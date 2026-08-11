@@ -36,7 +36,8 @@ body {
 }
 
 .hero-title {
-    font-size: 4rem;
+    /* Теперь шрифт не будет больше 3.5rem на ПК и меньше 2rem на мобилках */
+    font-size: clamp(2rem, 5vw, 3.5rem); 
     line-height: 1.1;
     margin-bottom: 20px;
     max-width: 800px;
@@ -91,7 +92,7 @@ body {
     background-color: var(--card-bg);
     border-radius: 20px;
     overflow: hidden;
-    height: 400px; /* Фиксированная высота для предзагрузки */
+    height: 300px; /* Сделали карточки более компактными */
     position: relative;
 }
 
@@ -117,4 +118,65 @@ body {
 @keyframes skeleton-loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+}
+
+/* Настройка ползунка слайдера под наш дизайн */
+img-comparison-slider {
+  --divider-color: var(--accent);
+  --default-handle-color: var(--accent);
+  border-radius: 20px;
+}
+
+img-comparison-slider img {
+  height: 300px;
+  object-fit: cover;
+}
+
+/* Стили для формы */
+.upload-section {
+    padding: 80px 0;
+    background-color: #080e10; /* Чуть темнее основного фона для контраста */
+}
+
+.form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.input-group input,
+.input-group textarea {
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #2a3a3d;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
 }
