@@ -11,7 +11,7 @@
         <div class="container" style="width: 100%;">
             <div class="form-wrapper">
                 <h2 class="section-title">Вход (Admin)</h2>
-                <form action="/admin/login" method="POST" class="custom-form">
+                <form action="/admin.php?action=login" method="POST" class="custom-form">
                     <div class="input-group">
                         <label for="password">Пароль</label>
                         <input type="password" id="password" name="password" required>

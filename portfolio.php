@@ -1,3 +1,9 @@
+<?php
+require_once 'db.php';
+
+$stmt = $db->query("SELECT * FROM portfolio");
+$portfolioItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -40,18 +46,18 @@
     <section class="portfolio" style="padding-top: 20px;">
         <div class="container">
             <div class="portfolio-grid">
-                <% if (portfolioItems && portfolioItems.length > 0) { %>
-                    <% portfolioItems.forEach(item => { %>
+                <?php if ($portfolioItems && count($portfolioItems) > 0): ?>
+                    <?php foreach ($portfolioItems as $item): ?>
                         <div class="portfolio-card">
                             <img-comparison-slider>
-                                <img slot="first" src="<%= item.before %>" alt="До" width="100%" />
-                                <img slot="second" src="<%= item.after %>" alt="После" width="100%" />
+                                <img slot="first" src="<?= htmlspecialchars($item['before']) ?>" alt="До" width="100%" />
+                                <img slot="second" src="<?= htmlspecialchars($item['after']) ?>" alt="После" width="100%" />
                             </img-comparison-slider>
                         </div>
-                    <% }) %>
-                <% } else { %>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <p style="text-align: center; grid-column: 1 / -1; color: var(--text-muted);">В портфолио пока нет работ. Они скоро появятся!</p>
-                <% } %>
+                <?php endif; ?>
             </div>
         </div>
     </section>
