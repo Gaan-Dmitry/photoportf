@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
 /* Базовые переменные (взято с референса Scandi Tours) */
 :root {
     --bg-color: #0b1315;      /* Глубокий темный фон */
@@ -5,7 +7,7 @@
     --text-main: #f4f6f7;     /* Светлый текст */
     --text-muted: #8c9fa3;    /* Второстепенный текст */
     --accent: #5e8b8c;        /* Приглушенный акцентный цвет */
-    --font-family: 'Helvetica Neue', Arial, sans-serif;
+    --font-family: 'Montserrat', Arial, sans-serif;
 }
 
 * {
@@ -27,6 +29,59 @@ body {
     padding: 0 20px;
 }
 
+/* Анимации */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Навигация */
+.top-nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(11, 19, 21, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(94, 139, 140, 0.2);
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.lang-switch a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: color 0.3s, background 0.3s;
+}
+
+.lang-switch a:hover,
+.lang-switch a.active {
+    color: #fff;
+    background: var(--accent);
+}
+
 /* Главный экран */
 .hero {
     height: 80vh;
@@ -41,6 +96,7 @@ body {
     line-height: 1.1;
     margin-bottom: 20px;
     max-width: 800px;
+    animation: fadeInUp 0.8s ease forwards;
 }
 
 .hero-title span {
@@ -55,6 +111,9 @@ body {
     margin-bottom: 40px;
     max-width: 600px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0; /* начальное состояние для анимации */
 }
 
 .hero-subtitle {
@@ -126,6 +185,9 @@ body {
     overflow: hidden;
     height: 300px; /* Сделали карточки более компактными */
     position: relative;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
 }
 
 .portfolio-card img {
