@@ -1,22 +1,35 @@
+<?php require_once 'lang.php'; ?>
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="<?= $current_lang ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профессиональная фоторетушь</title>
+    <title><?= t('page_title') ?></title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
+    <!-- Навигация -->
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="/"><?= t('nav_home') ?></a>
+            <a href="/portfolio.php"><?= t('nav_portfolio') ?></a>
+        </div>
+        <div class="lang-switch">
+            <a href="?lang=ru" class="<?= $current_lang === 'ru' ? 'active' : '' ?>">RU</a>
+            <a href="?lang=en" class="<?= $current_lang === 'en' ? 'active' : '' ?>">EN</a>
+        </div>
+    </nav>
+
     <!-- Главный экран -->
     <header class="hero">
         <div class="container">
-            <h1 class="hero-title">Взглянем на ваши снимки <span>иначе</span></h1>
+            <h1 class="hero-title"><?= t('hero_title') ?></h1>
             <div class="promo-box">
-                <p class="hero-subtitle">🎁 Бесплатная профессиональная ретушь до 01.11.2026. Загрузите свой исходник, и я покажу, на что он способен!</p>
+                <p class="hero-subtitle"><?= t('hero_subtitle') ?></p>
             </div>
-            <a href="#upload" class="btn-primary">Отправить фото</a>
-            <a href="/portfolio.php" class="btn-primary">Смотреть портфолио</a>
+            <a href="#upload" class="btn-primary"><?= t('btn_send_photo') ?></a>
+            <a href="/portfolio.php" class="btn-primary"><?= t('btn_view_portfolio') ?></a>
         </div>
     </header>
 
@@ -24,28 +37,28 @@
     <section id="upload" class="upload-section">
         <div class="container">
             <div class="form-wrapper">
-                <h2 class="section-title">Оставить заявку</h2>
+                <h2 class="section-title"><?= t('section_upload_title') ?></h2>
                 <p style="text-align: center; margin-bottom: 30px; color: var(--text-muted);">
-                    Прикрепите ссылку на облако с RAW/TIFF файлами (можно загрузить целую папку). Я сам отсмотрю материал и выберу от 1 до 3 лучших кадров для глубокой ретуши.
+                    <?= t('upload_desc') ?>
                 </p>
                 
                 <form action="/submit-request.php" method="POST" class="custom-form">
                     <div class="input-group">
-                        <label for="email">Ваш Email (туда придет результат)</label>
-                        <input type="email" id="email" name="email" required placeholder="example@mail.com">
+                        <label for="email"><?= t('label_email') ?></label>
+                        <input type="email" id="email" name="email" required placeholder="<?= t('ph_email') ?>">
                     </div>
                     
                     <div class="input-group">
-                        <label for="link">Ссылка на исходник (Google Drive, Яндекс.Диск)</label>
-                        <input type="url" id="link" name="link" required placeholder="https://...">
+                        <label for="link"><?= t('label_link') ?></label>
+                        <input type="url" id="link" name="link" required placeholder="<?= t('ph_link') ?>">
                     </div>
                     
                     <div class="input-group">
-                        <label for="comments">Пожелания (опционально)</label>
-                        <textarea id="comments" name="comments" rows="3" placeholder="Что бы вы хотели изменить?"></textarea>
+                        <label for="comments"><?= t('label_comments') ?></label>
+                        <textarea id="comments" name="comments" rows="3" placeholder="<?= t('ph_comments') ?>"></textarea>
                     </div>
                     
-                    <button type="submit" class="btn-primary" style="width: 100%;">Отправить на ретушь</button>
+                    <button type="submit" class="btn-primary" style="width: 100%;"><?= t('btn_submit_retouch') ?></button>
                 </form>
             </div>
         </div>
@@ -57,26 +70,26 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Обо мне</h3>
-                    <p>Профессиональная фоторетушь и цветокоррекция. Делаю ваши снимки ярче, выразительнее и стильнее. Индивидуальный подход к каждому кадру.</p>
+                    <h3><?= t('footer_about') ?></h3>
+                    <p><?= t('footer_about_desc') ?></p>
                 </div>
                 <div class="footer-column">
-                    <h3>Навигация</h3>
+                    <h3><?= t('footer_nav') ?></h3>
                     <ul>
-                        <li><a href="#">Главная</a></li>
-                        <li><a href="/portfolio.php">Портфолио</a></li>
-                        <li><a href="#upload">Оставить заявку</a></li>
+                        <li><a href="#"><?= t('nav_home') ?></a></li>
+                        <li><a href="/portfolio.php"><?= t('nav_portfolio') ?></a></li>
+                        <li><a href="#upload"><?= t('section_upload_title') ?></a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Контакты</h3>
+                    <h3><?= t('footer_contacts') ?></h3>
                     <ul class="contact-list">
                         <li><span class="icon">📧</span> <a href="mailto:info@example.com">info@example.com</a></li>
                         <li><span class="icon">📱</span> <a href="tel:+1234567890">+1 234 567 890</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Соц. сети</h3>
+                    <h3><?= t('footer_socials') ?></h3>
                     <div class="social-links">
                         <a href="#" class="social-icon" title="Instagram">Instagram</a>
                         <a href="#" class="social-icon" title="Telegram">Telegram</a>
@@ -85,7 +98,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Профессиональная фоторетушь. Все права защищены.</p>
+                <p>&copy; <?= date('Y') ?> <?= t('footer_rights') ?></p>
             </div>
         </div>
     </footer>
@@ -134,12 +147,12 @@ document.addEventListener("DOMContentLoaded", function() {
             submitBtn.disabled = false;
             submitBtn.style.opacity = '1';
             submitBtn.style.cursor = 'pointer';
-            submitBtn.textContent = 'Отправить на ретушь';
+            submitBtn.textContent = '<?= t('btn_submit_retouch') ?>';
         } else {
             const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
             const minutes = Math.floor((timeLeft / 1000 / 60) % 60);
             const seconds = Math.floor((timeLeft / 1000) % 60);
-            submitBtn.textContent = \`Отправка доступна через \${hours}:\${minutes.toString().padStart(2, '0')}:\${seconds.toString().padStart(2, '0')}\`;
+            submitBtn.textContent = `<?= t('submit_available_in') ?> ${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
     }
 
