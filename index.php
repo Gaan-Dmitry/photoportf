@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= t('page_title') ?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -13,7 +14,6 @@
     <nav class="top-nav">
         <div class="nav-links">
             <a href="/"><?= t('nav_home') ?></a>
-            <a href="/portfolio.php"><?= t('nav_portfolio') ?></a>
         </div>
         <div class="lang-switch">
             <a href="?lang=ru" class="<?= $current_lang === 'ru' ? 'active' : '' ?>">RU</a>
@@ -25,11 +25,15 @@
     <header class="hero">
         <div class="container">
             <h1 class="hero-title"><?= t('hero_title') ?></h1>
-            <div class="promo-box">
-                <p class="hero-subtitle"><?= t('hero_subtitle') ?></p>
+            <p style="font-size: 0.8rem; margin-bottom: 20px;"><a href="#upload" style="color: var(--accent); text-decoration: none;">Оставить заявку можно здесь &darr;</a></p>
+
+            <div id="game-container">
+                <div id="game-output"></div>
+                <div id="game-input-line">
+                    <span class="prompt">&gt;</span>
+                    <input type="text" id="game-input" autocomplete="off" autofocus>
+                </div>
             </div>
-            <a href="#upload" class="btn-primary"><?= t('btn_send_photo') ?></a>
-            <a href="/portfolio.php" class="btn-primary"><?= t('btn_view_portfolio') ?></a>
         </div>
     </header>
 
@@ -77,23 +81,21 @@
                     <h3><?= t('footer_nav') ?></h3>
                     <ul>
                         <li><a href="#"><?= t('nav_home') ?></a></li>
-                        <li><a href="/portfolio.php"><?= t('nav_portfolio') ?></a></li>
                         <li><a href="#upload"><?= t('section_upload_title') ?></a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3><?= t('footer_contacts') ?></h3>
                     <ul class="contact-list">
-                        <li><span class="icon">📧</span> <a href="mailto:info@example.com">info@example.com</a></li>
-                        <li><span class="icon">📱</span> <a href="tel:+1234567890">+1 234 567 890</a></li>
+                        <li><span class="icon">📧</span> <a href="mailto:admin@gaan-dev.ru">admin@gaan-dev.ru</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3><?= t('footer_socials') ?></h3>
                     <div class="social-links">
-                        <a href="#" class="social-icon" title="Instagram">Instagram</a>
-                        <a href="#" class="social-icon" title="Telegram">Telegram</a>
-                        <a href="#" class="social-icon" title="Behance">Behance</a>
+                        <a href="https://instagram.com/Gaan_Dmitry" class="social-icon" title="Instagram">Instagram: @Gaan_Dmitry</a>
+                        <a href="https://t.me/Gaan_Dmitry" class="social-icon" title="Telegram">Telegram: @Gaan_Dmitry</a>
+                        <a href="https://pinterest.com/Gaan_Dmitry" class="social-icon" title="Pinterest">Pinterest: @Gaan_Dmitry</a>
                     </div>
                 </div>
             </div>
@@ -177,6 +179,70 @@ document.addEventListener("DOMContentLoaded", function() {
         // Не устанавливаем тут localstorage, так как данные могли не дойти до сервера,
         // устанавливаем его при возврате через ?success=1
     });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const output = document.getElementById("game-output");
+    const input = document.getElementById("game-input");
+    const container = document.getElementById("game-container");
+
+    const gameState = {
+        location: "start"
+    };
+
+    function printLine(text, isCommand = false) {
+        const line = document.createElement("div");
+        if (isCommand) {
+            line.innerHTML = `<span style="color: var(--accent);">&gt; ${text}</span>`;
+        } else {
+            line.innerHTML = text;
+        }
+        output.appendChild(line);
+        output.scrollTop = output.scrollHeight;
+    }
+
+    function processCommand(cmd) {
+        cmd = cmd.trim().toLowerCase();
+        printLine(cmd, true);
+
+        if (cmd === "") return;
+
+        if (cmd === "help") {
+            printLine("Доступные команды:");
+            printLine("- help  : Показать эту справку");
+            printLine("- look  : Осмотреться");
+            printLine("- about : О проекте");
+            printLine("- clear : Очистить экран");
+        } else if (cmd === "look") {
+            printLine("Вы находитесь в цифровой лаборатории. Вокруг мерцают зеленые символы на черных экранах. В углу стоит старый сервер.");
+        } else if (cmd === "about") {
+            printLine("Gaan Dmitry Lab v1.0. Экспериментальная площадка.");
+        } else if (cmd === "clear") {
+            output.innerHTML = "";
+        } else {
+            printLine(`Неизвестная команда: '${cmd}'. Введите 'help' для списка команд.`);
+        }
+    }
+
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            const val = input.value;
+            input.value = "";
+            processCommand(val);
+        }
+    });
+
+    container.addEventListener("click", function() {
+        input.focus();
+    });
+
+    // Начальное сообщение
+    printLine("Gaan Dmitry Lab Terminal [Версия 1.0.0]");
+    printLine("=========================================");
+    printLine("Добро пожаловать в текстовую среду.");
+    printLine("Введите 'help' для начала.");
 });
 </script>
 

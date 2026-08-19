@@ -1,31 +1,7 @@
-[Thu Aug 13 11:06:09 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
-[Thu Aug 13 11:06:31 2026] [::1]:50472 Accepted
-[Thu Aug 13 11:06:31 2026] [::1]:50472 [200]: GET /index.php
-[Thu Aug 13 11:06:31 2026] [::1]:50472 Closing
-[Thu Aug 13 11:06:31 2026] [::1]:50486 Accepted
-[Thu Aug 13 11:06:31 2026] [::1]:50486 [200]: GET /css/style.css
-[Thu Aug 13 11:06:31 2026] [::1]:50486 Closing
-[Thu Aug 13 11:06:34 2026] [::1]:50490 Accepted
-[Thu Aug 13 11:06:34 2026] [::1]:50490 [200]: GET /index.php?lang=en
-[Thu Aug 13 11:06:34 2026] [::1]:50490 Closing
-[Thu Aug 13 11:06:34 2026] [::1]:50502 Accepted
-[Thu Aug 13 11:06:34 2026] [::1]:50502 [200]: GET /css/style.css
-[Thu Aug 13 11:06:34 2026] [::1]:50502 Closing
-[Thu Aug 13 11:07:05 2026] [::1]:54042 Accepted
-[Thu Aug 13 11:07:05 2026] [::1]:54042 [200]: GET /index.php
-[Thu Aug 13 11:07:05 2026] [::1]:54042 Closing
-[Thu Aug 13 11:07:05 2026] [::1]:54058 Accepted
-[Thu Aug 13 11:07:05 2026] [::1]:54058 [200]: GET /css/style.css
-[Thu Aug 13 11:07:05 2026] [::1]:54058 Closing
-[Thu Aug 13 11:07:07 2026] [::1]:54066 Accepted
-[Thu Aug 13 11:07:07 2026] [::1]:54066 [200]: GET /index.php?lang=en
-[Thu Aug 13 11:07:07 2026] [::1]:54066 Closing
-[Thu Aug 13 11:07:07 2026] [::1]:54080 Accepted
-[Thu Aug 13 11:07:07 2026] [::1]:54080 [200]: GET /css/style.css
-[Thu Aug 13 11:07:07 2026] [::1]:54080 Closing
-[Thu Aug 13 11:07:09 2026] [::1]:54096 Accepted
-[Thu Aug 13 11:07:09 2026] [::1]:54096 [200]: GET /portfolio.php
-[Thu Aug 13 11:07:09 2026] [::1]:54096 Closing
-[Thu Aug 13 11:07:09 2026] [::1]:54108 Accepted
-[Thu Aug 13 11:07:09 2026] [::1]:54108 [200]: GET /css/style.css
-[Thu Aug 13 11:07:09 2026] [::1]:54108 Closing
+[Wed Aug 19 15:13:21 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Wed Aug 19 15:13:44 2026] [::1]:56558 Accepted
+[Wed Aug 19 15:13:44 2026] [::1]:56558 [200]: GET /
+[Wed Aug 19 15:13:44 2026] [::1]:56558 Closing
+[Wed Aug 19 15:13:44 2026] [::1]:56566 Accepted
+[Wed Aug 19 15:13:44 2026] [::1]:56566 [200]: GET /css/style.css
+[Wed Aug 19 15:13:44 2026] [::1]:56566 Closing
