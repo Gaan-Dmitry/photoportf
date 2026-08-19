@@ -25,7 +25,15 @@
     <header class="hero">
         <div class="container">
             <h1 class="hero-title"><?= t('hero_title') ?></h1>
-            <a href="#upload" class="btn-primary"><?= t('btn_send_photo') ?></a>
+            <p style="font-size: 0.8rem; margin-bottom: 20px;"><a href="#upload" style="color: var(--accent); text-decoration: none;">Оставить заявку можно здесь &darr;</a></p>
+
+            <div id="game-container">
+                <div id="game-output"></div>
+                <div id="game-input-line">
+                    <span class="prompt">&gt;</span>
+                    <input type="text" id="game-input" autocomplete="off" autofocus>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -171,6 +179,70 @@ document.addEventListener("DOMContentLoaded", function() {
         // Не устанавливаем тут localstorage, так как данные могли не дойти до сервера,
         // устанавливаем его при возврате через ?success=1
     });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const output = document.getElementById("game-output");
+    const input = document.getElementById("game-input");
+    const container = document.getElementById("game-container");
+
+    const gameState = {
+        location: "start"
+    };
+
+    function printLine(text, isCommand = false) {
+        const line = document.createElement("div");
+        if (isCommand) {
+            line.innerHTML = `<span style="color: var(--accent);">&gt; ${text}</span>`;
+        } else {
+            line.innerHTML = text;
+        }
+        output.appendChild(line);
+        output.scrollTop = output.scrollHeight;
+    }
+
+    function processCommand(cmd) {
+        cmd = cmd.trim().toLowerCase();
+        printLine(cmd, true);
+
+        if (cmd === "") return;
+
+        if (cmd === "help") {
+            printLine("Доступные команды:");
+            printLine("- help  : Показать эту справку");
+            printLine("- look  : Осмотреться");
+            printLine("- about : О проекте");
+            printLine("- clear : Очистить экран");
+        } else if (cmd === "look") {
+            printLine("Вы находитесь в цифровой лаборатории. Вокруг мерцают зеленые символы на черных экранах. В углу стоит старый сервер.");
+        } else if (cmd === "about") {
+            printLine("Gaan Dmitry Lab v1.0. Экспериментальная площадка.");
+        } else if (cmd === "clear") {
+            output.innerHTML = "";
+        } else {
+            printLine(`Неизвестная команда: '${cmd}'. Введите 'help' для списка команд.`);
+        }
+    }
+
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            const val = input.value;
+            input.value = "";
+            processCommand(val);
+        }
+    });
+
+    container.addEventListener("click", function() {
+        input.focus();
+    });
+
+    // Начальное сообщение
+    printLine("Gaan Dmitry Lab Terminal [Версия 1.0.0]");
+    printLine("=========================================");
+    printLine("Добро пожаловать в текстовую среду.");
+    printLine("Введите 'help' для начала.");
 });
 </script>
 

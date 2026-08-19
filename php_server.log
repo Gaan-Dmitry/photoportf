@@ -1,13 +1,7 @@
-[Wed Aug 19 14:59:42 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
-[Wed Aug 19 15:00:32 2026] [::1]:57790 Accepted
-[Wed Aug 19 15:00:32 2026] [::1]:57790 [200]: GET /
-[Wed Aug 19 15:00:32 2026] [::1]:57790 Closing
-[Wed Aug 19 15:00:32 2026] [::1]:57796 Accepted
-[Wed Aug 19 15:00:32 2026] [::1]:57796 [200]: GET /css/style.css
-[Wed Aug 19 15:00:32 2026] [::1]:57796 Closing
-[Wed Aug 19 15:00:50 2026] [::1]:37316 Accepted
-[Wed Aug 19 15:00:50 2026] [::1]:37316 [200]: GET /
-[Wed Aug 19 15:00:50 2026] [::1]:37316 Closing
-[Wed Aug 19 15:00:50 2026] [::1]:37320 Accepted
-[Wed Aug 19 15:00:50 2026] [::1]:37320 [200]: GET /css/style.css
-[Wed Aug 19 15:00:50 2026] [::1]:37320 Closing
+[Wed Aug 19 15:13:21 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Wed Aug 19 15:13:44 2026] [::1]:56558 Accepted
+[Wed Aug 19 15:13:44 2026] [::1]:56558 [200]: GET /
+[Wed Aug 19 15:13:44 2026] [::1]:56558 Closing
+[Wed Aug 19 15:13:44 2026] [::1]:56566 Accepted
+[Wed Aug 19 15:13:44 2026] [::1]:56566 [200]: GET /css/style.css
+[Wed Aug 19 15:13:44 2026] [::1]:56566 Closing
